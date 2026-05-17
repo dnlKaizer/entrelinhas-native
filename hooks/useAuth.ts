@@ -1,9 +1,10 @@
-import type { AuthUser } from "@/types/auth";
+import { AuthContext } from '@/providers/AuthProvider';
+import { useContext } from 'react';
 
 export function useAuth() {
-  // aqui é um hook para autenticação (login, logout, cadastro, sessão)
-  return {
-    user: null as AuthUser | null,
-    isLoading: false,
-  };
+  const context = useContext(AuthContext);
+  if (context === undefined) {
+    throw new Error('useAuth deve ser usado dentro de um AuthProvider');
+  }
+  return context;
 }

@@ -1,6 +1,6 @@
 export const ROUTES = {
   // aqui ficam os caminhos das rotas para evitar strings soltas
   LOGIN: "/(auth)/login",
-  CADASTRO: "/(auth)/cadastro",
+  REGISTER: "/(auth)/register",
   HOME: "/(app)/home",
-};
+} as const;

@@ -1,5 +1,6 @@
 import tamaguiConfig from '@/config/tamagui.config';
 import { createContext, useState } from 'react';
+import { useColorScheme } from 'react-native';
 import { TamaguiProvider } from 'tamagui';
 
 export const ThemeContext = createContext({
@@ -8,7 +9,7 @@ export const ThemeContext = createContext({
 });
 
 export const ThemeProvider = ({ children }: { children: React.ReactNode }) => {
-    const [theme, setTheme] = useState<'light' | 'dark'>('light');
+    const [theme, setTheme] = useState<'light' | 'dark'>(useColorScheme() ?? 'light');
     const toggleTheme = () => setTheme(prev => prev === 'light' ? 'dark' : 'light');
 
     return (

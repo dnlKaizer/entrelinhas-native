@@ -1,12 +1,8 @@
 import { DB_SCHEMA } from "@/constants/database";
 import { supabase } from "@/lib/supabase/client";
-import { Tables, TablesInsert, TablesUpdate } from "@/types/database.types";
+import { IBook, IBookInsert, IBookUpdate } from "@/types/book.types";
 
 const SCHEMA = DB_SCHEMA.BOOKS;
-
-export type IBook = Tables<typeof SCHEMA.TABLE>;
-export type IBookInsert = TablesInsert<typeof SCHEMA.TABLE>;
-export type IBookUpdate = TablesUpdate<typeof SCHEMA.TABLE>;
 
 class BookService {
 

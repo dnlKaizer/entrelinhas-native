@@ -1,0 +1,21 @@
+/* Estiliza o scroll para navegadores Webkit (Chrome, Safari, Edge) */
+::-webkit-scrollbar {
+    height: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #4444446f;
+    /* Cor para modo escuro */
+    border-radius: 4px;
+}
+
+/* Opcional: Se quiser que mude a cor no modo claro, pode usar media queries */
+@media (prefers-color-scheme: light) {
+    ::-webkit-scrollbar-thumb {
+        background: #ccc;
+    }
+}

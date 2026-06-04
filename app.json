@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "entrelinhas-native",
-    "slug": "entrelinhas-native",
+    "name": "Entrelinhas",
+    "slug": "Entrelinhas",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/launcher-icon-512x512.png",

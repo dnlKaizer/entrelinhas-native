@@ -1,6 +1,7 @@
 /* Estiliza o scroll para navegadores Webkit (Chrome, Safari, Edge) */
 ::-webkit-scrollbar {
     height: 8px;
+    width: 8px;
 }
 
 ::-webkit-scrollbar-track {

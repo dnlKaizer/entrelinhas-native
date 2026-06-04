@@ -17,6 +17,7 @@ export function BookList({ books, type }: { books: IBook[]; type: 'Desejado' | '
                 width="100%"
                 maxWidth={800}
                 alignSelf="center"
+                animation="bouncy"
             >
                 <H3 marginBottom="$2" alignSelf="center">{type}</H3>
                 

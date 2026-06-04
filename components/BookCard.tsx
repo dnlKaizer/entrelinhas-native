@@ -8,6 +8,7 @@ import { useRouter } from "expo-router";
 export function BookCard({ book }: { book: IBook }) {
     const { title, author, imgUri } = useBookCard(book);
     const router = useRouter();
+    const bookLabel = `Capa do Livro ${book[DB_SCHEMA.BOOKS.COLUMNS.NAME]}`;
 
     return (
         <Card 
@@ -27,6 +28,8 @@ export function BookCard({ book }: { book: IBook }) {
                     contentFit="contain"
                     cachePolicy="disk"
                     transition={100}
+                    alt={bookLabel}
+                    accessibilityLabel={bookLabel}
                 />
                 <H4 numberOfLines={1} fontSize="$6">{title}</H4>
                 <Paragraph theme="alt1">{author}</Paragraph>

@@ -1,8 +1,6 @@
 import { BookList } from "@/components/BookList";
 import { globalStyles } from "@/constants/global-styles";
 import { useBooks } from "@/hooks/useBooks";
-import { useTheme } from "@/hooks/useTheme";
-import { useEffect } from "react";
 import { ScrollView, YStack } from "tamagui";
 
 export default function HomePage() {

@@ -1,11 +1,14 @@
 import { IBook } from "@/types/book.types";
 import { FlatList } from "react-native";
-import { H3, Theme, YStack } from "tamagui";
+import { H3, Paragraph, Theme, YStack } from "tamagui";
 import { BookCard } from "./BookCard";
 import { DB_SCHEMA } from "@/constants/database";
+import { EmptyBookButton } from "./EmptyBookButton";
 
 export function BookList({ books, type }: { books: IBook[]; type: 'Desejado' | 'Lido' | 'Lendo' }) {
     const themeName = type === 'Desejado' ? 'blue' : type === 'Lido' ? 'green' : 'purple';
+    const count = books.length;
+    const isEmpty = count === 0;
 
     return (
         <Theme name={themeName}>
@@ -21,18 +24,23 @@ export function BookList({ books, type }: { books: IBook[]; type: 'Desejado' | '
             >
                 <H3 marginBottom="$2" alignSelf="center" fontWeight="bold">{type}</H3>
                 
-                <FlatList
-                    data={books}
-                    keyExtractor={(item) => item[DB_SCHEMA.BOOKS.COLUMNS.ID].toString()}
-                    horizontal
-                    contentContainerStyle={{ 
-                        gap: 12, 
-                        marginBottom: 8,
-                    }}
-                    renderItem={({ item }) => (
-                        <BookCard book={item} />
-                    )}
-                />
+                {isEmpty ? (
+                    <EmptyBookButton />
+                ) : (
+                    <FlatList
+                        data={books}
+                        keyExtractor={(item) => item[DB_SCHEMA.BOOKS.COLUMNS.ID].toString()}
+                        horizontal
+                        contentContainerStyle={{ 
+                            gap: 12, 
+                            marginBottom: 8,
+                        }}
+                        renderItem={({ item }) => (
+                            <BookCard book={item} />
+                        )}
+                    />
+                )}
+                <Paragraph alignSelf="flex-end">{count} {count === 1 ? 'livro' : 'livros'}</Paragraph>
             </YStack>
         </Theme>
     );

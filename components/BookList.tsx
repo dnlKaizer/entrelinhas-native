@@ -31,9 +31,9 @@ export function BookList({ books, type }: { books: IBook[]; type: 'Desejado' | '
                         data={books}
                         keyExtractor={(item) => item[DB_SCHEMA.BOOKS.COLUMNS.ID].toString()}
                         horizontal
-                        contentContainerStyle={{ 
-                            gap: 12, 
-                            marginBottom: 8,
+                        contentContainerStyle={{
+                            gap: 12,
+                            padding: 12,
                         }}
                         renderItem={({ item }) => (
                             <BookCard book={item} />

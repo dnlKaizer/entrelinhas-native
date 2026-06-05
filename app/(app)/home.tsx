@@ -8,8 +8,8 @@ export default function HomePage() {
 
   return (
     <ScrollView>
-      <YStack padding="$4" paddingBottom="$10" backgroundColor="$background" gap="$4" style={globalStyles.centerContainer}>
-        <H2>Minha Biblioteca</H2>
+      <YStack padding="$4" backgroundColor="$background" gap="$4" style={globalStyles.centerContainer}>
+        <H2 fontWeight="bold">Minha Biblioteca</H2>
         <BookList books={readingBooks} type="Lendo" />
         <BookList books={wishedBooks} type="Desejado" />
         <BookList books={readBooks} type="Lido" />

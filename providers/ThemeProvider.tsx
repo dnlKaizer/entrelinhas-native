@@ -1,7 +1,7 @@
-import tamaguiConfig from '@/config/tamagui.config';
+import { tamaguiConfig } from '@/config/tamagui.config';
 import { createContext, useState } from 'react';
 import { useColorScheme } from 'react-native';
-import { TamaguiProvider } from 'tamagui';
+import { TamaguiProvider, Theme } from 'tamagui';
 
 export const ThemeContext = createContext({
     theme: 'light',
@@ -15,7 +15,9 @@ export const ThemeProvider = ({ children }: { children: React.ReactNode }) => {
     return (
         <ThemeContext.Provider value={{ theme, toggleTheme }}>
             <TamaguiProvider config={tamaguiConfig} defaultTheme={theme}>
-                { children }
+                <Theme name={'blue'}>
+                    { children }
+                </Theme>
             </TamaguiProvider>
         </ThemeContext.Provider>
     );

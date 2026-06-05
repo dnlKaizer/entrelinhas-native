@@ -1,9 +1,12 @@
+import { useLogin } from "@/hooks/useLogin";
 import { useTheme } from "@/hooks/useTheme";
-import { Moon, Sun } from "@tamagui/lucide-icons";
+import { LogOut, Moon, Sun } from "@tamagui/lucide-icons";
+import { SafeAreaView } from "react-native-safe-area-context";
 import { Button, H1, Theme, XStack, YStack } from "tamagui";
 
 export function Header() {
     const { theme, toggleTheme } = useTheme();
+    const { logout } = useLogin();
 
     return <Theme name='blue'>
         <YStack
@@ -19,15 +22,27 @@ export function Header() {
                 maxWidth={1200}
                 justifyContent="space-between" 
                 alignItems="center" 
+                overflow="visible"
             >
-                <H1 fontFamily="$lobster">Entrelinhas</H1>
-                <Button
-                    size="$4"
-                    circular
-                    icon={theme === 'light' ? Moon : Sun}
-                    onPress={toggleTheme}
-                    aria-label="Trocar tema"
-                />
+                <H1 fontFamily="$lobster">
+                    Entrelinhas
+                </H1>
+                <XStack gap="$2">
+                    <Button
+                        size="$4"
+                        circular
+                        icon={theme === 'light' ? Moon : Sun}
+                        onPress={toggleTheme}
+                        aria-label="Trocar tema"
+                    />
+                    <Button
+                        size="$4"
+                        circular
+                        icon={LogOut}
+                        onPress={logout}
+                        aria-label="Desconectar"
+                    />
+                </XStack>
             </XStack>
         </YStack>
     </Theme>

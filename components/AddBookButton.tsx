@@ -1,19 +1,20 @@
 import { Plus } from "@tamagui/lucide-icons";
 import { Button } from "tamagui";
 
-export function EmptyBookButton() {
+export function AddBookButton() {
     return (
         <Button
-            width={120}
-            height={200}
+            width={80}
+            height={120}
             borderWidth={2}
             borderColor="$borderColor"
-            borderStyle="dashed" // O segredo para o pontilhado
+            borderStyle="dashed"
             borderRadius="$4"
             onPress={() => console.log("Adicionar novo livro")}
             icon={Plus}
-            scaleIcon={3}
+            scaleIcon={2}
             aria-label="Adicionar novo livro"
+            alignSelf="center"
         />
     );
 }

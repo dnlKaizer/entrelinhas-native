@@ -14,7 +14,7 @@ export function AuthForm({ isRegister = false }: { isRegister?: boolean }) {
         <Form onSubmit={onSubmit} gap="$5" padding="$4" width="100%">
             {error && (
                 <YStack backgroundColor="$red2" padding="$3" borderRadius="$4" borderWidth={1} borderColor="$red6">
-                    <Paragraph color="$red10" textAlign="center" fontWeight="bold" size="$3">
+                    <Paragraph color="$red10" textAlign="center" size="$4">
                         {error}
                     </Paragraph>
                 </YStack>

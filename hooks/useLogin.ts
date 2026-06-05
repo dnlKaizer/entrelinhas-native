@@ -22,7 +22,7 @@ export function useLogin() {
         setError(null);
 
         if (password !== confirmPassword) {
-            setError("As senhas não coincidem.");
+            setError("As senhas não coincidem");
             setIsLoading(false);
             return;
         }

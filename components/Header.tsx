@@ -1,14 +1,13 @@
 import { useLogin } from "@/hooks/useLogin";
 import { useTheme } from "@/hooks/useTheme";
 import { LogOut, Moon, Sun } from "@tamagui/lucide-icons";
-import { SafeAreaView } from "react-native-safe-area-context";
-import { Button, H1, Theme, XStack, YStack } from "tamagui";
+import { Button, H1, XStack, YStack } from "tamagui";
 
 export function Header() {
     const { theme, toggleTheme } = useTheme();
     const { logout } = useLogin();
 
-    return <Theme name='blue'>
+    return (
         <YStack
             backgroundColor="$background" 
             padding="$3" 
@@ -45,5 +44,5 @@ export function Header() {
                 </XStack>
             </XStack>
         </YStack>
-    </Theme>
+    );
 }

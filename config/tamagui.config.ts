@@ -23,13 +23,4 @@ export const tamaguiConfig = createTamagui({
         ...config.fonts,
         lobster: lobsterFont,
     },
-    themes: {
-        ...config.themes,
-        light: {
-            ...config.themes.light_blue,
-        },
-        dark: {
-            ...config.themes.dark_blue,
-        }
-    },
 });

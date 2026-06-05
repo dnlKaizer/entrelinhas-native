@@ -5,6 +5,11 @@ import { Image } from "expo-image";
 import { DB_SCHEMA } from "@/constants/database";
 import { useRouter } from "expo-router";
 
+export const truncateText = (text: string, maxLength: number) => {
+    if (text.length <= maxLength) return text;
+    return text.substring(0, maxLength - 3) + "...";
+};
+
 export function BookCard({ book }: { book: IBook }) {
     const { title, author, imgUri } = useBookCard(book);
     const router = useRouter();
@@ -31,8 +36,17 @@ export function BookCard({ book }: { book: IBook }) {
                     alt={bookLabel}
                     accessibilityLabel={bookLabel}
                 />
-                <H4 numberOfLines={1} fontSize="$6" fontWeight="bold">{title}</H4>
-                <Paragraph theme="alt1">{author}</Paragraph>
+                <H4
+                    numberOfLines={1}
+                    ellipsizeMode="tail"
+                    fontSize="$6"
+                    fontWeight="bold"
+                >{truncateText(title, 20)}</H4>
+                <Paragraph
+                    numberOfLines={1}
+                    ellipsizeMode="tail"
+                    theme="alt1"
+                >{truncateText(author, 20)}</Paragraph>
             </YStack>
         </Card>
     );

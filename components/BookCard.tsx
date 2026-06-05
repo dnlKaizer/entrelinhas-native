@@ -31,7 +31,7 @@ export function BookCard({ book }: { book: IBook }) {
                     alt={bookLabel}
                     accessibilityLabel={bookLabel}
                 />
-                <H4 numberOfLines={1} fontSize="$6">{title}</H4>
+                <H4 numberOfLines={1} fontSize="$6" fontWeight="bold">{title}</H4>
                 <Paragraph theme="alt1">{author}</Paragraph>
             </YStack>
         </Card>

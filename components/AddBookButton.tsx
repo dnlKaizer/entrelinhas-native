@@ -1,0 +1,20 @@
+import { Plus } from "@tamagui/lucide-icons";
+import { Button } from "tamagui";
+
+export function AddBookButton() {
+    return (
+        <Button
+            width={80}
+            height={120}
+            borderWidth={2}
+            borderColor="$borderColor"
+            borderStyle="dashed"
+            borderRadius="$4"
+            onPress={() => console.log("Adicionar novo livro")}
+            icon={Plus}
+            scaleIcon={2}
+            aria-label="Adicionar novo livro"
+            alignSelf="center"
+        />
+    );
+}

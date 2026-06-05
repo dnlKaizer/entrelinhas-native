@@ -16,8 +16,8 @@ export default function HomePage() {
   }
 
   return (
-    <ScrollView>
-      <YStack padding="$4" backgroundColor="$background" gap="$4" style={globalStyles.centerContainer}>
+    <ScrollView backgroundColor="$background">
+      <YStack padding="$4" gap="$4" style={globalStyles.centerContainer}>
         {error && (
           <YStack backgroundColor="$yellow5" padding="$2" alignItems="center">
             <Paragraph color="$yellow11" size="$2">

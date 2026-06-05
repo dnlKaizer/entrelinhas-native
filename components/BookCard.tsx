@@ -17,7 +17,6 @@ export function BookCard({ book }: { book: IBook }) {
 
     return (
         <Card 
-            elevate 
             size="$4" 
             bordered 
             animation="bouncy" 

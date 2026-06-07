@@ -48,9 +48,23 @@ export default function BookDetails() {
 
 
   return (
-    <ScrollView backgroundColor="#1e293b" flex={1} contentContainerStyle={{ flexGrow: 1 }}>
+    <YStack flex={1} backgroundColor="#1e293b" position="relative">
       {/* Botão de Voltar */}
       <Button
+        icon={ArrowLeft}
+        position="absolute"
+        top="$4"
+        left="$4"
+        circular
+        size="$4"
+        elevate
+        zIndex={100} // Garante que ele fique por cima de tudo ao rolar
+        onPress={() => router.back()}
+        backgroundColor="$background"
+      />
+
+      <ScrollView flex={1} contentContainerStyle={{ flexGrow: 1 }}>
+        {/* <Button
         icon={ArrowLeft}
         position="absolute"
         top="$4"
@@ -61,105 +75,106 @@ export default function BookDetails() {
         zIndex={10}
         onPress={() => router.back()}
         backgroundColor="$background"
-      />
+      /> */}
 
-      {/* Container Centralizado */}
-      <YStack
-        flex={1}
-        maxWidth={600}
-        width="100%"
-        alignSelf="center"
-        backgroundColor="$background"
-        paddingHorizontal="$5"
-        paddingVertical="$6"
-        gap="$4"
-      >
-        {/* Capa do Livro Dinâmica */}
-        <YStack alignSelf="center" shadowColor="#000" shadowRadius={10} shadowOpacity={0.1}>
-          <Image
-            source={urlDaCapa}
-            style={{ width: 220, height: 300, borderRadius: 12 }}
-            objectFit="cover"
-          />
-        </YStack>
+        {/* Container Centralizado */}
+        <YStack
+          flex={1}
+          maxWidth={600}
+          width="100%"
+          alignSelf="center"
+          backgroundColor="$background"
+          paddingHorizontal="$5"
+          paddingVertical="$6"
+          gap="$4"
+        >
+          {/* Capa do Livro Dinâmica */}
+          <YStack alignSelf="center" shadowColor="#000" shadowRadius={10} shadowOpacity={0.1}>
+            <Image
+              source={urlDaCapa}
+              style={{ width: 220, height: 300, borderRadius: 12 }}
+              objectFit="cover"
+            />
+          </YStack>
 
-        {/* Títulos Dinâmicos */}
-        <YStack alignItems="center" gap="$2" marginTop="$2">
-          <Text fontSize="$8" fontWeight="bold" textAlign="center" color="$color">
-            {book.nome}
-          </Text>
-          <Text fontSize="$5" color="$colorMuted" textAlign="center">
-            {book.autor || "Autor desconhecido"}
-          </Text>
-        </YStack>
+          {/* Títulos Dinâmicos */}
+          <YStack alignItems="center" gap="$2" marginTop="$2">
+            <Text fontSize="$8" fontWeight="bold" textAlign="center" color="$color">
+              {book.nome}
+            </Text>
+            <Text fontSize="$5" color="$colorMuted" textAlign="center">
+              {book.autor || "Autor desconhecido"}
+            </Text>
+          </YStack>
 
-        {/* Status */}
-        {book.status && (
-          <Button size="$2" alignSelf="center" disabled backgroundColor="$blue4" borderColor="$blue7" color="$blue10" borderRadius="$4">
-            {book.status}
-          </Button>
-        )}
-
-        {/* Barra de Progresso Dinâmica */}
-        <YStack gap="$2" marginVertical="$2" paddingHorizontal="$4">
-          <XStack justifyContent="space-between" alignItems="center">
-            <Progress value={progressoPorcentagem} max={100} flex={1} marginRight="$3" size="$2">
-              <Progress.Indicator animation="bouncy" backgroundColor="$blue10" />
-            </Progress>
-            <Text fontSize="$3" fontWeight="bold" color="$colorMuted">{progressoPorcentagem}%</Text>
-          </XStack>
-        </YStack>
-
-        {/* Metadados */}
-        <XStack justifyContent="center" gap="$3" flexWrap="wrap" paddingHorizontal="$2" marginVertical="$2">
-          {/* Total de Páginas ('numPag') */}
-          <XStack backgroundColor="$backgroundHover" paddingHorizontal="$3" paddingVertical="$2" borderRadius="$4" alignItems="center" gap="$2">
-            <BookOpen size={16} color="$colorMuted" />
-            <Text fontSize="$3" color="$colorMuted">{book.numPag} pág.</Text>
-          </XStack>
-
-          {/* Ano do Livro ('ano') */}
-          {book.ano && (
-            <XStack backgroundColor="$backgroundHover" paddingHorizontal="$3" paddingVertical="$2" borderRadius="$4" alignItems="center" gap="$2">
-              <Layers size={16} color="$colorMuted" />
-              <Text fontSize="$3" color="$colorMuted">{book.ano}</Text>
-            </XStack>
+          {/* Status */}
+          {book.status && (
+            <Button size="$2" alignSelf="center" disabled backgroundColor="$blue4" borderColor="$blue7" color="$blue10" borderRadius="$4">
+              {book.status}
+            </Button>
           )}
 
-          {/* Data de Início da Leitura ('dtInicial') */}
-          {book.dtInicial && (
-            <XStack backgroundColor="$backgroundHover" paddingHorizontal="$3" paddingVertical="$2" borderRadius="$4" alignItems="center" gap="$2">
-              <Calendar size={16} color="$colorMuted" />
-              <Text fontSize="$3" color="$colorMuted">
-                Lendo desde: {new Date(String(book.dtInicial)).toLocaleDateString('pt-BR')}
-              </Text>
+          {/* Barra de Progresso Dinâmica */}
+          <YStack gap="$2" marginVertical="$2" paddingHorizontal="$4">
+            <XStack justifyContent="space-between" alignItems="center">
+              <Progress value={progressoPorcentagem} max={100} flex={1} marginRight="$3" size="$2">
+                <Progress.Indicator animation="bouncy" backgroundColor="$blue10" />
+              </Progress>
+              <Text fontSize="$3" fontWeight="bold" color="$colorMuted">{progressoPorcentagem}%</Text>
             </XStack>
-          )}
-        </XStack>
+          </YStack>
 
-        <XStack borderBottomWidth={1} borderColor="$borderColor" marginVertical="$2" />
+          {/* Metadados */}
+          <XStack justifyContent="center" gap="$3" flexWrap="wrap" paddingHorizontal="$2" marginVertical="$2">
+            {/* Total de Páginas ('numPag') */}
+            <XStack backgroundColor="$backgroundHover" paddingHorizontal="$3" paddingVertical="$2" borderRadius="$4" alignItems="center" gap="$2">
+              <BookOpen size={16} color="$colorMuted" />
+              <Text fontSize="$3" color="$colorMuted">{book.numPag} página(s)</Text>
+            </XStack>
 
-        {/* Sinopse / Anotações ('text' no seu banco) */}
-        <Text fontSize="$4" lineHeight={22} color="$color" paddingHorizontal="$2" textAlign="justify">
-          {book.text || "Nenhuma descrição ou anotação inserida para este livro."}
-        </Text>
+            {/* Ano do Livro ('ano') */}
+            {book.ano && (
+              <XStack backgroundColor="$backgroundHover" paddingHorizontal="$3" paddingVertical="$2" borderRadius="$4" alignItems="center" gap="$2">
+                <Layers size={16} color="$colorMuted" />
+                <Text fontSize="$3" color="$colorMuted">{book.ano}</Text>
+              </XStack>
+            )}
 
-        {/* Ações */}
-        <YStack gap="$3" marginTop="$4" paddingHorizontal="$2">
-          <XStack gap="$3">
-            <Button theme="blue" icon={Pencil} flex={1} fontWeight="bold">
-              Editar
-            </Button>
-            <Button theme="red" icon={Trash2} variant="outlined" flex={1} fontWeight="bold">
-              Excluir
-            </Button>
+            {/* Data de Início da Leitura ('dtInicial') */}
+            {book.dtInicial && (
+              <XStack backgroundColor="$backgroundHover" paddingHorizontal="$3" paddingVertical="$2" borderRadius="$4" alignItems="center" gap="$2">
+                <Calendar size={16} color="$colorMuted" />
+                <Text fontSize="$3" color="$colorMuted">
+                  Lendo desde: {new Date(String(book.dtInicial)).toLocaleDateString('pt-BR')}
+                </Text>
+              </XStack>
+            )}
           </XStack>
 
-          <Button icon={Share2} variant="outlined" fontWeight="bold">
-            Compartilhar livro
-          </Button>
+          <XStack borderBottomWidth={1} borderColor="$borderColor" marginVertical="$2" />
+
+          {/* Sinopse / Anotações ('text' no seu banco) */}
+          <Text fontSize="$4" lineHeight={22} color="$color" paddingHorizontal="$2" textAlign="justify">
+            {book.text || "Nenhuma descrição ou anotação inserida para este livro."}
+          </Text>
+
+          {/* Ações */}
+          <YStack gap="$3" marginTop="$4" paddingHorizontal="$2">
+            <XStack gap="$3">
+              <Button theme="blue" icon={Pencil} flex={1} fontWeight="bold">
+                Editar
+              </Button>
+              <Button theme="red" icon={Trash2} variant="outlined" flex={1} fontWeight="bold">
+                Excluir
+              </Button>
+            </XStack>
+
+            <Button icon={Share2} variant="outlined" fontWeight="bold">
+              Compartilhar livro
+            </Button>
+          </YStack>
         </YStack>
-      </YStack>
-    </ScrollView>
+      </ScrollView>
+    </YStack>
   );
 }

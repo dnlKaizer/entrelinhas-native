@@ -1,6 +1,6 @@
+import { ArrowLeft, BookOpen, Calendar, Layers, Pencil, Share2, Trash2, Trophy } from '@tamagui/lucide-icons';
 import { useLocalSearchParams, useRouter } from 'expo-router';
-import { ArrowLeft, Pencil, Trash2, Share2, BookOpen, Calendar, Layers, Trophy } from '@tamagui/lucide-icons';
-import { YStack, XStack, Text, Image, Button, ScrollView, Progress, Spinner } from 'tamagui';
+import { Button, Image, Progress, ScrollView, Spinner, Text, XStack, YStack } from 'tamagui';
 
 import { useBookDetails } from '@/hooks/useBookDetails';
 
@@ -21,7 +21,7 @@ export default function BookDetails() {
 
   if (isLoading) {
     return (
-      <YStack flex={1} justifyContent="center" alignItems="center" backgroundColor="#1e293b">
+      <YStack flex={1} justifyContent="center" alignItems="center" backgroundColor="$background">
         <Spinner size="large" color="$blue10" />
         <Text marginTop="$2" color="$colorMuted">Carregando detalhes do livro...</Text>
       </YStack>
@@ -30,7 +30,7 @@ export default function BookDetails() {
 
   if (isError || !book) {
     return (
-      <YStack flex={1} justifyContent="center" alignItems="center" backgroundColor="#1e293b" paddingHorizontal="$4" gap="$3">
+      <YStack flex={1} justifyContent="center" alignItems="center" backgroundColor="$background" paddingHorizontal="$4" gap="$3">
         <Text fontSize="$6" fontWeight="bold" color="$red10">Ocorreu um erro</Text>
         <Text color="$colorMuted" textAlign="center">
           {error instanceof Error ? error.message : "Não foi possível carregar os dados deste livro."}
@@ -48,9 +48,30 @@ export default function BookDetails() {
   const totalPaginas = book.numPag || 1;
   const progressoPorcentagem = Math.min(Math.round((paginasLidas / totalPaginas) * 100), 100);
 
+  const statusTheme = {
+  Desejado: {
+    backgroundColor: '$blue4',
+    borderColor: '$blue7',
+    color: '$blue10',
+  },
+  Lido: {
+    backgroundColor: '$green4',
+    borderColor: '$green7',
+    color: '$green10',
+  },
+  Lendo: {
+    backgroundColor: '$purple4',
+    borderColor: '$purple7',
+    color: '$purple10',
+  },
+};
+
+const currentStatusTheme =
+  statusTheme[book.status as keyof typeof statusTheme] ??
+  statusTheme.Lendo;
 
   return (
-    <YStack flex={1} backgroundColor="#1e293b" position="relative">
+    <YStack flex={1} backgroundColor="$background" position="relative">
       {/* Botão de Voltar */}
       <Button
         icon={ArrowLeft}
@@ -111,7 +132,7 @@ export default function BookDetails() {
 
           {/* Status */}
           {book.status && (
-            <Button size="$2" alignSelf="center" disabled backgroundColor="$blue4" borderColor="$blue7" color="$blue10" borderRadius="$4">
+            <Button size="$2" alignSelf="center" disabled {...currentStatusTheme} borderRadius="$4">
               {book.status}
             </Button>
           )}
@@ -168,7 +189,7 @@ export default function BookDetails() {
             {/* 4. Data de Término (Condicional) */}
             {book.dtFinal && (
               <BookMetadataCard
-                icon={<Trophy size={16} color="$green10" />} // Um destaque verde para a conquista!
+                icon={<Trophy size={16} color="$green10" />} 
                 accessibilityLabel="Data de término da leitura"
               >
                 {new Date(String(book.dtFinal)).toLocaleDateString('pt-BR')}

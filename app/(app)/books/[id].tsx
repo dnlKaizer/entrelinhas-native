@@ -1,5 +1,5 @@
 import { useLocalSearchParams, useRouter } from 'expo-router';
-import { ArrowLeft, Pencil, Trash2, Share2, BookOpen, Calendar, Layers } from '@tamagui/lucide-icons';
+import { ArrowLeft, Pencil, Trash2, Share2, BookOpen, Calendar, Layers, Trophy } from '@tamagui/lucide-icons';
 import { YStack, XStack, Text, Image, Button, ScrollView, Progress, Spinner } from 'tamagui';
 
 import { useBookDetails } from '@/hooks/useBookDetails';
@@ -7,6 +7,8 @@ import { useBookDetails } from '@/hooks/useBookDetails';
 import { IBook } from '@/types/book.types';
 
 import placeholderImg from '@/assets/images/placeholder.png';
+
+import { BookMetadataCard } from '@/components/BookMetadataCard';
 
 export default function BookDetails() {
   const router = useRouter();
@@ -118,42 +120,66 @@ export default function BookDetails() {
           <YStack gap="$2" marginVertical="$2" paddingHorizontal="$4">
             <XStack justifyContent="space-between" alignItems="center">
               <Progress value={progressoPorcentagem} max={100} flex={1} marginRight="$3" size="$2">
-                <Progress.Indicator animation="bouncy" backgroundColor="$blue10" />
+                <Progress.Indicator animation="lazy" backgroundColor="$blue10" />
               </Progress>
               <Text fontSize="$3" fontWeight="bold" color="$colorMuted">{progressoPorcentagem}%</Text>
             </XStack>
           </YStack>
 
-          {/* Metadados */}
-          <XStack justifyContent="center" gap="$3" flexWrap="wrap" paddingHorizontal="$2" marginVertical="$2">
-            {/* Total de Páginas ('numPag') */}
-            <XStack backgroundColor="$backgroundHover" paddingHorizontal="$3" paddingVertical="$2" borderRadius="$4" alignItems="center" gap="$2">
-              <BookOpen size={16} color="$colorMuted" />
-              <Text fontSize="$3" color="$colorMuted">{book.numPag} página(s)</Text>
-            </XStack>
+          {/* Metadados Responsivos */}
+          <XStack
+            justifyContent="center"
+            alignItems="center"
+            gap="$3"
+            flexWrap="wrap"           
+            paddingHorizontal="$2"
+            marginVertical="$2"
+            width="100%"
+          >
 
-            {/* Ano do Livro ('ano') */}
+            {/* 1. Total de Páginas (Sempre visível) */}
+            <BookMetadataCard
+              icon={<BookOpen size={16} color="$colorMuted" />}
+              accessibilityLabel="Total de páginas"
+            >
+              {book.numPag} páginas
+            </BookMetadataCard>
+
+            {/* 2. Ano do Livro (Condicional) */}
             {book.ano && (
-              <XStack backgroundColor="$backgroundHover" paddingHorizontal="$3" paddingVertical="$2" borderRadius="$4" alignItems="center" gap="$2">
-                <Layers size={16} color="$colorMuted" />
-                <Text fontSize="$3" color="$colorMuted">{book.ano}</Text>
-              </XStack>
+              <BookMetadataCard
+                icon={<Layers size={16} color="$colorMuted" />}
+                accessibilityLabel="Ano de publicação"
+              >
+                {book.ano}
+              </BookMetadataCard>
             )}
 
-            {/* Data de Início da Leitura ('dtInicial') */}
+            {/* 3. Data de Início (Condicional) */}
             {book.dtInicial && (
-              <XStack backgroundColor="$backgroundHover" paddingHorizontal="$3" paddingVertical="$2" borderRadius="$4" alignItems="center" gap="$2">
-                <Calendar size={16} color="$colorMuted" />
-                <Text fontSize="$3" color="$colorMuted">
-                  Lendo desde: {new Date(String(book.dtInicial)).toLocaleDateString('pt-BR')}
-                </Text>
-              </XStack>
+              <BookMetadataCard
+                icon={<Calendar size={16} color="$colorMuted" />}
+                accessibilityLabel="Data de início da leitura"
+              >
+                {new Date(String(book.dtInicial)).toLocaleDateString('pt-BR')}
+              </BookMetadataCard>
             )}
+
+            {/* 4. Data de Término (Condicional) */}
+            {book.dtFinal && (
+              <BookMetadataCard
+                icon={<Trophy size={16} color="$green10" />} // Um destaque verde para a conquista!
+                accessibilityLabel="Data de término da leitura"
+              >
+                {new Date(String(book.dtFinal)).toLocaleDateString('pt-BR')}
+              </BookMetadataCard>
+            )}
+
           </XStack>
 
           <XStack borderBottomWidth={1} borderColor="$borderColor" marginVertical="$2" />
 
-          {/* Sinopse / Anotações ('text' no seu banco) */}
+          {/* Descrição */}
           <Text fontSize="$4" lineHeight={22} color="$color" paddingHorizontal="$2" textAlign="justify">
             {book.text || "Nenhuma descrição ou anotação inserida para este livro."}
           </Text>

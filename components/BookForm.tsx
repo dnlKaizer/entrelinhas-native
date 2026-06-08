@@ -104,7 +104,7 @@ export function BookForm({ book, onSubmit, onCancel }: BookFormProps) {
             >
                 {/* Header */}
                 <YStack gap="$1">
-                    <H4 fontWeight="800" letterSpacing={-0.5}>
+                    <H4 fontWeight="bold" letterSpacing={-0.5}>
                         {isEditMode ? '✏️  Editar livro' : '📚  Adicionar livro'}
                     </H4>
                     <Text color="$color10" fontSize="$3">
@@ -120,7 +120,7 @@ export function BookForm({ book, onSubmit, onCancel }: BookFormProps) {
                 <YStack gap="$4">
                     <Text
                         fontSize="$2"
-                        fontWeight="700"
+                        fontWeight="bold"
                         color="$color9"
                         textTransform="uppercase"
                         letterSpacing={1.2}
@@ -139,6 +139,7 @@ export function BookForm({ book, onSubmit, onCancel }: BookFormProps) {
                         <Input
                             id="nome"
                             placeholder="Ex.: O Senhor dos Anéis"
+                            placeholderTextColor="$color"
                             size="$4"
                             borderColor={touched.nome && errors.nome ? '$red8' : '$borderColor'}
                             focusStyle={{ borderColor: '$blue8' }}
@@ -156,6 +157,7 @@ export function BookForm({ book, onSubmit, onCancel }: BookFormProps) {
                         <Input
                             id="autor"
                             placeholder="Ex.: J.R.R. Tolkien"
+                            placeholderTextColor="$color"
                             size="$4"
                             focusStyle={{ borderColor: '$blue8' }}
                             {...bind('autor')}
@@ -174,6 +176,7 @@ export function BookForm({ book, onSubmit, onCancel }: BookFormProps) {
                                 <Input
                                     id="ano"
                                     placeholder="Ex.: 1954"
+                                    placeholderTextColor="$color"
                                     keyboardType="numeric"
                                     size="$4"
                                     borderColor={touched.ano && errors.ano ? '$red8' : '$borderColor'}
@@ -194,6 +197,7 @@ export function BookForm({ book, onSubmit, onCancel }: BookFormProps) {
                                 <Input
                                     id="numPag"
                                     placeholder="Ex.: 576"
+                                    placeholderTextColor="$color"
                                     keyboardType="numeric"
                                     size="$4"
                                     borderColor={
@@ -240,6 +244,7 @@ export function BookForm({ book, onSubmit, onCancel }: BookFormProps) {
                                     <Input
                                         id="dtInicial"
                                         placeholder="AAAA-MM-DD"
+                                        placeholderTextColor="$color"
                                         keyboardType="numbers-and-punctuation"
                                         size="$4"
                                         borderColor={
@@ -264,6 +269,7 @@ export function BookForm({ book, onSubmit, onCancel }: BookFormProps) {
                                         <Input
                                             id="dtFinal"
                                             placeholder="AAAA-MM-DD"
+                                            placeholderTextColor="$color"
                                             keyboardType="numbers-and-punctuation"
                                             size="$4"
                                             borderColor={
@@ -293,6 +299,7 @@ export function BookForm({ book, onSubmit, onCancel }: BookFormProps) {
                                     id="numPagRead"
                                     flex={1}
                                     placeholder="Ex.: 150"
+                                    placeholderTextColor="$color"
                                     keyboardType="numeric"
                                     size="$4"
                                     borderColor={
@@ -357,6 +364,7 @@ export function BookForm({ book, onSubmit, onCancel }: BookFormProps) {
                         <Input
                             id="img"
                             placeholder="https://..."
+                            placeholderTextColor="$color"
                             keyboardType="url"
                             autoCapitalize="none"
                             size="$4"
@@ -370,10 +378,12 @@ export function BookForm({ book, onSubmit, onCancel }: BookFormProps) {
                         label="Sinopse / Notas"
                         icon={<AlignLeft size={14} />}
                         htmlFor="text"
-                    >
+                        >
                         <TextArea
+                            backgroundColor="$background"
                             id="text"
                             placeholder="Adicione uma sinopse, resenha ou notas pessoais..."
+                            placeholderTextColor="$color"
                             size="$4"
                             minHeight={100}
                             focusStyle={{ borderColor: '$blue8' }}

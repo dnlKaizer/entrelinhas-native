@@ -52,6 +52,7 @@ export default function BookDetails() {
         zIndex={100} // Garante que ele fique por cima de tudo ao rolar
         onPress={() => router.back()}
         backgroundColor="$background"
+        aria-label="Voltar"
       />
 
       <ScrollView flex={1} contentContainerStyle={{ flexGrow: 1 }}>
@@ -87,6 +88,7 @@ export default function BookDetails() {
               contentFit="cover"
               cachePolicy="disk"
               transition={100}
+              accessibilityLabel={`Capa do Livro ${title}`}
             />
           </YStack>
 
@@ -102,7 +104,14 @@ export default function BookDetails() {
 
           {/* Status */}
           {book.status && (
-            <Button size="$2" alignSelf="center" disabled {...currentStatusTheme} borderRadius="$4">
+            <Button
+              size="$2"
+              alignSelf="center"
+              disabled
+              {...currentStatusTheme}
+              borderRadius="$4"
+              aria-label={`Status do livro: ${book.status}`}
+            >
               {book.status}
             </Button>
           )}
@@ -110,7 +119,7 @@ export default function BookDetails() {
           {/* Barra de Progresso Dinâmica */}
           <YStack gap="$2" marginVertical="$2" paddingHorizontal="$4">
             <XStack justifyContent="space-between" alignItems="center">
-              <Progress value={progressPercentual} max={100} flex={1} marginRight="$3" size="$2">
+              <Progress value={progressPercentual} max={100} flex={1} marginRight="$3" size="$2" aria-label="Progresso de Leitura">
                 <Progress.Indicator backgroundColor="$blue10" />
               </Progress>
               <Text fontSize="$3" fontWeight="bold" color="$colorMuted">{progressPercentual}%</Text>
@@ -178,15 +187,15 @@ export default function BookDetails() {
           {/* Ações */}
           <YStack gap="$3" marginTop="$4" paddingHorizontal="$2">
             <XStack gap="$3">
-              <Button theme="blue" icon={Pencil} flex={1} fontWeight="bold">
+              <Button theme="blue" icon={Pencil} flex={1} fontWeight="bold" aria-label="Editar livro">
                 Editar
               </Button>
-              <Button theme="red" icon={Trash2} variant="outlined" flex={1} fontWeight="bold">
+              <Button theme="red" icon={Trash2} variant="outlined" flex={1} fontWeight="bold" aria-label="Excluir livro">
                 Excluir
               </Button>
             </XStack>
 
-            <Button icon={Share2} variant="outlined" fontWeight="bold">
+            <Button icon={Share2} variant="outlined" fontWeight="bold" aria-label="Compartilhar livro">
               Compartilhar livro
             </Button>
           </YStack>

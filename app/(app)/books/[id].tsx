@@ -1,4 +1,4 @@
-import { ArrowLeft, BookOpen, Calendar, Layers, Pencil, Share2, Trash2, Trophy } from '@tamagui/lucide-icons-2';
+import { ArrowLeft, BookOpen, Calendar, Layers, Loader, Pencil, Share2, Trash2, Trophy } from '@tamagui/lucide-icons-2';
 import { useLocalSearchParams, useRouter } from 'expo-router';
 import { Button, Progress, ScrollView, Spinner, Text, XStack, YStack } from 'tamagui';
 import { useBookDetails } from '@/hooks/useBookDetails';
@@ -6,6 +6,7 @@ import { IBook } from '@/types/book.types';
 import { BookMetadataCard } from '@/components/BookMetadataCard';
 import { useBookCard } from '@/hooks/useBookCard';
 import { Image } from 'expo-image';
+import { useBook } from '@/hooks/useBook';
 
 export default function BookDetails() {
   const router = useRouter();
@@ -13,6 +14,7 @@ export default function BookDetails() {
   const bookId = Number(id);
 
   const { data, isLoading, isError, error } = useBookDetails(bookId);
+  const { deleteBook, isDeleting, error: bookError } = useBook();
 
   const book = data as IBook;
 
@@ -184,13 +186,34 @@ export default function BookDetails() {
             {book.text || "Nenhuma descrição ou anotação inserida para este livro."}
           </Text>
 
+          {/* Erro */}
+          {bookError && (
+            <Text fontSize="$3" color="$red10" textAlign="center">
+              {bookError}
+            </Text>
+          )}
+
           {/* Ações */}
           <YStack gap="$3" marginTop="$4" paddingHorizontal="$2">
             <XStack gap="$3">
-              <Button theme="blue" icon={Pencil} flex={1} fontWeight="bold" aria-label="Editar livro">
+              <Button
+                theme="blue"
+                onPress={() => router.push(`/books/${bookId}/edit`)}
+                flex={1}
+                fontWeight="bold"
+                aria-label="Editar livro"
+              >
                 Editar
               </Button>
-              <Button theme="red" icon={Trash2} variant="outlined" flex={1} fontWeight="bold" aria-label="Excluir livro">
+              <Button
+                theme="red"
+                icon={!isDeleting ? Trash2 : <Spinner />}
+                onPress={() => deleteBook(bookId)}
+                variant="outlined"
+                flex={1}
+                fontWeight="bold"
+                aria-label="Excluir livro"
+              >
                 Excluir
               </Button>
             </XStack>

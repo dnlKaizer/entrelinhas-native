@@ -1,4 +1,5 @@
 import { Plus } from "@tamagui/lucide-icons-2";
+import { router } from "expo-router";
 import { Button } from "tamagui";
 
 export function AddBookButton() {
@@ -10,7 +11,7 @@ export function AddBookButton() {
             borderColor="$borderColor"
             borderStyle="dashed"
             borderRadius="$4"
-            onPress={() => console.log("Adicionar novo livro")}
+            onPress={() => router.push("/books/new")}
             icon={Plus}
             scaleIcon={2}
             aria-label="Adicionar novo livro"

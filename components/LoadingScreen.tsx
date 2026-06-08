@@ -1,5 +1,5 @@
 import { globalStyles } from "@/constants/global-styles";
-import { ActivityIndicator, StyleSheet, View } from "react-native";
+import { ActivityIndicator, View } from "react-native";
 
 export function LoadingScreen() {
     return (

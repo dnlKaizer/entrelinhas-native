@@ -1,6 +1,6 @@
 import { IBook } from "@/types/book.types";
 import { FlatList } from "react-native";
-import { H3, Paragraph, Theme, XStack, YStack } from "tamagui";
+import { H3, Paragraph, Theme, YStack } from "tamagui";
 import { BookCard } from "./BookCard";
 import { DB_SCHEMA } from "@/constants/database";
 import { AddBookButton } from "././AddBookButton";

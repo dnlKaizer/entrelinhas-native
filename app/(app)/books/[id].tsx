@@ -1,4 +1,4 @@
-import { ArrowLeft, BookOpen, Calendar, Layers, Share2, Trash2, Trophy } from '@tamagui/lucide-icons-2';
+import { BookOpen, Calendar, Layers, Share2, Trash2, Trophy } from '@tamagui/lucide-icons-2';
 import { useLocalSearchParams, useRouter } from 'expo-router';
 import { Button, Progress, ScrollView, Spinner, Text, XStack, YStack } from 'tamagui';
 import { useBookDetails } from '@/hooks/useBookDetails';

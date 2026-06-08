@@ -1,14 +1,10 @@
 import { ArrowLeft, BookOpen, Calendar, Layers, Pencil, Share2, Trash2, Trophy } from '@tamagui/lucide-icons';
 import { useLocalSearchParams, useRouter } from 'expo-router';
 import { Button, Image, Progress, ScrollView, Spinner, Text, XStack, YStack } from 'tamagui';
-
 import { useBookDetails } from '@/hooks/useBookDetails';
-
 import { IBook } from '@/types/book.types';
-
-import placeholderImg from '@/assets/images/placeholder.png';
-
 import { BookMetadataCard } from '@/components/BookMetadataCard';
+import { useBookCard } from '@/hooks/useBookCard';
 
 export default function BookDetails() {
   const router = useRouter();
@@ -40,35 +36,7 @@ export default function BookDetails() {
     );
   }
 
-  const urlDaCapa = book.img
-    ? `${process.env.EXPO_PUBLIC_SUPABASE_URL}/storage/v1/object/public/covers/${book.img}`
-    : placeholderImg;
-
-  const paginasLidas = book.numPagRead || 0;
-  const totalPaginas = book.numPag || 1;
-  const progressoPorcentagem = Math.min(Math.round((paginasLidas / totalPaginas) * 100), 100);
-
-  const statusTheme = {
-  Desejado: {
-    backgroundColor: '$blue4',
-    borderColor: '$blue7',
-    color: '$blue10',
-  },
-  Lido: {
-    backgroundColor: '$green4',
-    borderColor: '$green7',
-    color: '$green10',
-  },
-  Lendo: {
-    backgroundColor: '$purple4',
-    borderColor: '$purple7',
-    color: '$purple10',
-  },
-};
-
-const currentStatusTheme =
-  statusTheme[book.status as keyof typeof statusTheme] ??
-  statusTheme.Lendo;
+  const { title, author, imgUri, progressPercentual, currentStatusTheme } = useBookCard(book);
 
   return (
     <YStack flex={1} backgroundColor="$background" position="relative">
@@ -114,7 +82,7 @@ const currentStatusTheme =
           {/* Capa do Livro Dinâmica */}
           <YStack alignSelf="center" shadowColor="#000" shadowRadius={10} shadowOpacity={0.1}>
             <Image
-              source={urlDaCapa}
+              source={imgUri}
               style={{ width: 220, height: 300, borderRadius: 12 }}
               objectFit="cover"
             />
@@ -123,10 +91,10 @@ const currentStatusTheme =
           {/* Títulos Dinâmicos */}
           <YStack alignItems="center" gap="$2" marginTop="$2">
             <Text fontSize="$8" fontWeight="bold" textAlign="center" color="$color">
-              {book.nome}
+              {title}
             </Text>
             <Text fontSize="$5" color="$colorMuted" textAlign="center">
-              {book.autor || "Autor desconhecido"}
+              {author}
             </Text>
           </YStack>
 
@@ -140,10 +108,10 @@ const currentStatusTheme =
           {/* Barra de Progresso Dinâmica */}
           <YStack gap="$2" marginVertical="$2" paddingHorizontal="$4">
             <XStack justifyContent="space-between" alignItems="center">
-              <Progress value={progressoPorcentagem} max={100} flex={1} marginRight="$3" size="$2">
+              <Progress value={progressPercentual} max={100} flex={1} marginRight="$3" size="$2">
                 <Progress.Indicator animation="lazy" backgroundColor="$blue10" />
               </Progress>
-              <Text fontSize="$3" fontWeight="bold" color="$colorMuted">{progressoPorcentagem}%</Text>
+              <Text fontSize="$3" fontWeight="bold" color="$colorMuted">{progressPercentual}%</Text>
             </XStack>
           </YStack>
 

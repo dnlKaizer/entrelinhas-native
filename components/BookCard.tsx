@@ -29,7 +29,7 @@ export function BookCard({ book }: { book: IBook }) {
                 <Image
                     source={imgUri}
                     style={{ width: '100%', height: 200, borderRadius: 8 }}
-                    contentFit="contain"
+                    contentFit="cover"
                     cachePolicy="disk"
                     transition={100}
                     alt={bookLabel}

@@ -6,6 +6,7 @@ import { IBookInsert, IBookUpdate } from "@/types/book.types";
 import { Spinner, YStack, Text, Button } from "tamagui";
 import { useAuth } from "@/hooks/useAuth";
 import { ArrowLeft } from "@tamagui/lucide-icons-2";
+import { BackButton } from "@/components/BackButton";
 
 export default function EditBook() {
     const { id } = useLocalSearchParams();
@@ -30,6 +31,14 @@ export default function EditBook() {
         });
     };
 
+    const handleBack = () => {
+        if (router.canGoBack()) {
+            router.back();
+        } else {
+            router.replace('/');
+        }
+    };
+
     if (isLoading) {
         return (
             <YStack flex={1} justifyContent="center" alignItems="center">
@@ -42,20 +51,9 @@ export default function EditBook() {
     return (
         <YStack flex={1} backgroundColor="$background" position="relative">
             {/* Botão de Voltar */}
-            <Button
-                icon={ArrowLeft}
-                position="absolute"
-                top="$4"
-                right="$4"
-                circular
-                size="$4"
-                zIndex={100} // Garante que ele fique por cima de tudo ao rolar
-                onPress={() => router.back()}
-                backgroundColor="$background"
-                aria-label="Voltar"
-            />
-            <BookForm 
-                book={book} 
+            <BackButton isRight />
+            <BookForm
+                book={book}
                 onSubmit={handleSubmit}
             />
         </YStack>

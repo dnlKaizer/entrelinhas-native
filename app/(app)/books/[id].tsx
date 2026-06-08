@@ -7,6 +7,7 @@ import { BookMetadataCard } from '@/components/BookMetadataCard';
 import { useBookCard } from '@/hooks/useBookCard';
 import { Image } from 'expo-image';
 import { useBook } from '@/hooks/useBook';
+import { BackButton, handleBack } from '@/components/BackButton';
 
 export default function BookDetails() {
   const router = useRouter();
@@ -34,7 +35,7 @@ export default function BookDetails() {
         <Text color="$colorMuted" textAlign="center">
           {error instanceof Error ? error.message : "Não foi possível carregar os dados deste livro."}
         </Text>
-        <Button onPress={() => router.back()} marginTop="$2">Voltar</Button>
+        <Button onPress={handleBack} marginTop="$2">Voltar</Button>
       </YStack>
     );
   }
@@ -44,18 +45,7 @@ export default function BookDetails() {
   return (
     <YStack flex={1} backgroundColor="$background" position="relative">
       {/* Botão de Voltar */}
-      <Button
-        icon={ArrowLeft}
-        position="absolute"
-        top="$4"
-        left="$4"
-        circular
-        size="$4"
-        zIndex={100} // Garante que ele fique por cima de tudo ao rolar
-        onPress={() => router.back()}
-        backgroundColor="$background"
-        aria-label="Voltar"
-      />
+      <BackButton />
 
       <ScrollView flex={1} contentContainerStyle={{ flexGrow: 1 }}>
         {/* <Button

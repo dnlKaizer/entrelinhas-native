@@ -119,7 +119,7 @@ export function BookForm({ book, onSubmit, onCancel }: BookFormProps) {
                 alignSelf='center'
             >
                 {/* Header */}
-                <YStack gap="$1">
+                <YStack gap="$1" alignItems="center">
                     <H4 fontWeight="bold" letterSpacing={-0.5}>
                         {isEditMode ? '✏️  Editar livro' : '📚  Adicionar livro'}
                     </H4>

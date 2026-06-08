@@ -31,14 +31,6 @@ export default function EditBook() {
         });
     };
 
-    const handleBack = () => {
-        if (router.canGoBack()) {
-            router.back();
-        } else {
-            router.replace('/');
-        }
-    };
-
     if (isLoading) {
         return (
             <YStack flex={1} justifyContent="center" alignItems="center">

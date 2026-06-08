@@ -8,6 +8,7 @@ import { useBookCard } from '@/hooks/useBookCard';
 import { Image } from 'expo-image';
 import { useBook } from '@/hooks/useBook';
 import { BackButton, handleBack } from '@/components/BackButton';
+import { useShare } from '@/hooks/useShare';
 
 export default function BookDetails() {
   const router = useRouter();
@@ -16,6 +17,7 @@ export default function BookDetails() {
 
   const { data, isLoading, isError, error } = useBookDetails(bookId);
   const { deleteBook, isDeleting, error: bookError } = useBook();
+  const { share, isSharing, shareError } = useShare();
 
   const book = data as IBook;
 
@@ -183,6 +185,12 @@ export default function BookDetails() {
             </Text>
           )}
 
+          {shareError && (
+            <Text fontSize="$3" color="$red10" textAlign="center">
+              {shareError}
+            </Text>
+          )}
+
           {/* Ações */}
           <YStack gap="$3" marginTop="$4" paddingHorizontal="$2">
             <XStack gap="$3">
@@ -208,7 +216,13 @@ export default function BookDetails() {
               </Button>
             </XStack>
 
-            <Button icon={Share2} variant="outlined" fontWeight="bold" aria-label="Compartilhar livro">
+            <Button
+              icon={!isSharing ? Share2 : <Spinner />}
+              onPress={() => share(book)}
+              variant="outlined"
+              fontWeight="bold"
+              aria-label="Compartilhar livro"
+            >
               Compartilhar livro
             </Button>
           </YStack>

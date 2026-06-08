@@ -24,6 +24,8 @@ import { IBook, IBookInsert, IBookUpdate } from '@/types/book.types';
 import { BookFormValues, useBookForm } from '@/hooks/useBookForm';
 import { FieldWrapper } from './FieldWrapper';
 import { StatusSelector } from './StatusSelector';
+import { useUploadImage } from '@/hooks/useUploadImage';
+import { Image } from 'expo-image';
 
 // ─── Tipagens ────────────────────────────────────────────────────────────────
 
@@ -71,6 +73,20 @@ export function BookForm({ book, onSubmit, onCancel }: BookFormProps) {
         handleSubmit,
         reset,
     } = useBookForm({ initialValues, onSubmit });
+
+    const { selectAndUpload, filePath, loading } = useUploadImage();
+
+    const handleUploadImage = async () => {
+        const url = await selectAndUpload();
+
+        if (url) {
+            setValue('img', url);
+        }
+    };
+
+    const uploadCover = (url: string) => {
+        return `${process.env.EXPO_PUBLIC_SUPABASE_URL}/storage/v1/object/public/covers/${url}`;
+    }
 
     // Helpers de binding para inputs de texto
     const bind = useCallback(
@@ -233,7 +249,7 @@ export function BookForm({ book, onSubmit, onCancel }: BookFormProps) {
 
                     {/* Datas de leitura */}
                     {showProgress ? (
-                        <XStack gap="$3"  enterStyle={{ opacity: 0, y: -8 }}>
+                        <XStack gap="$3" enterStyle={{ opacity: 0, y: -8 }}>
                             <YStack flex={1}>
                                 <FieldWrapper
                                     label="Início"
@@ -282,12 +298,12 @@ export function BookForm({ book, onSubmit, onCancel }: BookFormProps) {
                                         />
                                     </FieldWrapper>
                                 </YStack>
-                            ): null}
+                            ) : null}
                         </XStack>
                     ) : null}
 
                     {/* Páginas lidas — só quando "Lendo" */}
-                    <YStack  enterStyle={{ opacity: 0, y: -8 }}>
+                    <YStack enterStyle={{ opacity: 0, y: -8 }}>
                         <FieldWrapper
                             label="Páginas lidas"
                             error={touched.numPagRead ? errors.numPagRead : undefined}
@@ -357,20 +373,28 @@ export function BookForm({ book, onSubmit, onCancel }: BookFormProps) {
 
                     {/* URL da capa */}
                     <FieldWrapper
-                        label="URL da capa"
+                        label="Capa do Livro"
                         icon={<ImageIcon size={14} />}
-                        htmlFor="img"
                     >
-                        <Input
-                            id="img"
-                            placeholder="https://..."
-                            placeholderTextColor="$color"
-                            keyboardType="url"
-                            autoCapitalize="none"
-                            size="$4"
-                            focusStyle={{ borderColor: '$blue8' }}
-                            {...bind('img')}
-                        />
+                        <YStack gap="$3" alignItems="center">
+                            <Button
+                                size="$4"
+                                variant="outlined"
+                                onPress={handleUploadImage}
+                                disabled={loading || isSubmitting}
+                                icon={loading ? <Spinner size="small" /> : <ImageIcon size={16} />}
+                            >
+                                {loading ? 'Enviando...' : (values.img ? 'Trocar capa' : 'Selecionar imagem')}
+                            </Button>
+
+                            {filePath ? (
+                                <Image
+                                    source={uploadCover(filePath)}
+                                    style={{ width: 100, height: 100 }}
+                                />
+                            ) : null}
+                        </YStack>
+
                     </FieldWrapper>
 
                     {/* Sinopse / notas */}
@@ -378,7 +402,7 @@ export function BookForm({ book, onSubmit, onCancel }: BookFormProps) {
                         label="Sinopse / Notas"
                         icon={<AlignLeft size={14} />}
                         htmlFor="text"
-                        >
+                    >
                         <TextArea
                             backgroundColor="$background"
                             id="text"
@@ -417,7 +441,7 @@ export function BookForm({ book, onSubmit, onCancel }: BookFormProps) {
                         onPress={handleSubmit}
                         disabled={isSubmitting}
                         pressStyle={{ opacity: 0.85, scale: 0.98 }}
-                        
+
                         flex={onCancel ? 2 : 1}
                         icon={isSubmitting ? <Spinner color="white" size="small" /> : undefined}
                     >

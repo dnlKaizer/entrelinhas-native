@@ -1,11 +1,12 @@
-import { ArrowLeft, BookOpen, Calendar, Layers, Pencil, Share2, Trash2, Trophy } from '@tamagui/lucide-icons-2';
-import { useLocalSearchParams, useRouter } from 'expo-router';
-import { Button, Progress, ScrollView, Spinner, Text, XStack, YStack } from 'tamagui';
-import { useBookDetails } from '@/hooks/useBookDetails';
-import { IBook } from '@/types/book.types';
 import { BookMetadataCard } from '@/components/BookMetadataCard';
 import { useBookCard } from '@/hooks/useBookCard';
+import { useBookDetails } from '@/hooks/useBookDetails';
+import { IBook } from '@/types/book.types';
+import { ArrowLeft, BookOpen, Calendar, Layers, Pencil, Share2, Trash2, Trophy } from '@tamagui/lucide-icons-2';
 import { Image } from 'expo-image';
+import { useLocalSearchParams, useRouter } from 'expo-router';
+import { shareBook } from '@/utils/shareHelper';
+import { Button, Progress, ScrollView, Spinner, Text, XStack, YStack } from 'tamagui';
 
 export default function BookDetails() {
   const router = useRouter();
@@ -16,6 +17,15 @@ export default function BookDetails() {
 
   const book = data as IBook;
 
+  const handleBack = () => {
+    if (router.canGoBack()) {
+      router.back();
+    } else {
+      router.replace('/');
+    }
+  };
+
+
   if (isLoading) {
     return (
       <YStack flex={1} justifyContent="center" alignItems="center" backgroundColor="$background">
@@ -24,6 +34,7 @@ export default function BookDetails() {
       </YStack>
     );
   }
+
 
   if (isError || !book) {
     return (
@@ -50,25 +61,11 @@ export default function BookDetails() {
         circular
         size="$4"
         zIndex={100} // Garante que ele fique por cima de tudo ao rolar
-        onPress={() => router.back()}
+        onPress={handleBack}
         backgroundColor="$background"
         aria-label="Voltar"
       />
-
       <ScrollView flex={1} contentContainerStyle={{ flexGrow: 1 }}>
-        {/* <Button
-        icon={ArrowLeft}
-        position="absolute"
-        top="$4"
-        left="$4"
-        circular
-        size="$4"
-        elevate
-        zIndex={10}
-        onPress={() => router.back()}
-        backgroundColor="$background"
-      /> */}
-
         {/* Container Centralizado */}
         <YStack
           flex={1}
@@ -80,6 +77,7 @@ export default function BookDetails() {
           paddingVertical="$6"
           gap="$4"
         >
+
           {/* Capa do Livro Dinâmica */}
           <YStack alignSelf="center" shadowColor="#000" shadowRadius={10} shadowOpacity={0.1}>
             <Image
@@ -92,6 +90,8 @@ export default function BookDetails() {
             />
           </YStack>
 
+
+
           {/* Títulos Dinâmicos */}
           <YStack alignItems="center" gap="$2" marginTop="$2">
             <Text fontSize="$8" fontWeight="bold" textAlign="center" color="$color">
@@ -101,6 +101,8 @@ export default function BookDetails() {
               {author}
             </Text>
           </YStack>
+
+
 
           {/* Status */}
           {book.status && (
@@ -116,6 +118,8 @@ export default function BookDetails() {
             </Button>
           )}
 
+
+
           {/* Barra de Progresso Dinâmica */}
           <YStack gap="$2" marginVertical="$2" paddingHorizontal="$4">
             <XStack justifyContent="space-between" alignItems="center">
@@ -126,17 +130,18 @@ export default function BookDetails() {
             </XStack>
           </YStack>
 
+
+
           {/* Metadados Responsivos */}
           <XStack
             justifyContent="center"
             alignItems="center"
             gap="$3"
-            flexWrap="wrap"           
+            flexWrap="wrap"
             paddingHorizontal="$2"
             marginVertical="$2"
             width="100%"
           >
-
             {/* 1. Total de Páginas (Sempre visível) */}
             <BookMetadataCard
               icon={<BookOpen size={16} color="$colorMuted" />}
@@ -168,21 +173,26 @@ export default function BookDetails() {
             {/* 4. Data de Término (Condicional) */}
             {book.dtFinal && (
               <BookMetadataCard
-                icon={<Trophy size={16} color="$green10" />} 
+                icon={<Trophy size={16} color="$green10" />}
                 accessibilityLabel="Data de término da leitura"
               >
                 {new Date(String(book.dtFinal)).toLocaleDateString('pt-BR')}
               </BookMetadataCard>
             )}
-
           </XStack>
 
+
+
           <XStack borderBottomWidth={1} borderColor="$borderColor" marginVertical="$2" />
+
+
 
           {/* Descrição */}
           <Text fontSize="$4" lineHeight={22} color="$color" paddingHorizontal="$2" textAlign="justify">
             {book.text || "Nenhuma descrição ou anotação inserida para este livro."}
           </Text>
+
+
 
           {/* Ações */}
           <YStack gap="$3" marginTop="$4" paddingHorizontal="$2">
@@ -195,10 +205,11 @@ export default function BookDetails() {
               </Button>
             </XStack>
 
-            <Button icon={Share2} variant="outlined" fontWeight="bold" aria-label="Compartilhar livro">
+            <Button icon={Share2} variant="outlined" fontWeight="bold" aria-label="Compartilhar livro" onPress={() => shareBook(book)}>
               Compartilhar livro
             </Button>
           </YStack>
+
         </YStack>
       </ScrollView>
     </YStack>

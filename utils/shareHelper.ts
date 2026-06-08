@@ -1,6 +1,5 @@
-// shareHelper.ts
-import { Share, Platform } from 'react-native';
-import { IBook } from '@/types/book.types'; // Importe a sua tipagem original
+import { IBook } from '@/types/book.types';
+import { Share } from 'react-native';
 
 export const shareBook = async (book: IBook) => {
     const title = book.nome;
@@ -10,10 +9,13 @@ export const shareBook = async (book: IBook) => {
 
     const message = `📚 *Indicação de Leitura!*
 
-📖 *Livro:* ${title}
-✍️ *Autor:* ${author}
+*Livro:* 
+${title}
 
-💡 _${description}_`;
+*Autor:* 
+${author}
+
+_${description}_`;
 
     try {
         await Share.share({

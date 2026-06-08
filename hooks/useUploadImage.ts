@@ -16,21 +16,22 @@ export function useUploadImage() {
 
     const selectAndUpload = async () => {
         try {
-            const resultado = await DocumentPicker.getDocumentAsync({
+            const document = await DocumentPicker.getDocumentAsync({
                 type: 'image/*',
+                copyToCacheDirectory: true,
             });
 
-            if (resultado.canceled) return null;
+            if (document.canceled) return null;
 
             setLoading(true);
-            const asset = resultado.assets[0];
-
-            // Chamada simplificada usando o serviço novo
-            const path = await coverUploadService.uploadCover({
+            const asset = document.assets[0];
+            const expoFile = {
                 uri: asset.uri,
                 name: asset.name,
                 mimeType: asset.mimeType ?? 'image/jpeg',
-            }, userId);
+            }
+
+            const path = await coverUploadService.uploadCover(expoFile, userId);
 
             setFilePath(path);
             return path;

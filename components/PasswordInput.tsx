@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Eye, EyeOff } from '@tamagui/lucide-icons';
+import { Eye, EyeOff } from '@tamagui/lucide-icons-2';
 import { Input, XStack, YStack, Label } from 'tamagui';
 
 export function PasswordInput({ label, id, value, onChangeText, placeholder }: any) {
@@ -40,6 +40,10 @@ export function PasswordInput({ label, id, value, onChangeText, placeholder }: a
                     }}
                     onFocus={() => setIsFocused(true)}
                     onBlur={() => setIsFocused(false)}
+                    
+                    color="$color"
+                    placeholderTextColor="$color"
+                    cursorColor="$blue10"
                 />
                 <YStack
                     onPress={() => setIsPasswordVisible(!isPasswordVisible)}

@@ -1,10 +1,11 @@
-import { ArrowLeft, BookOpen, Calendar, Layers, Pencil, Share2, Trash2, Trophy } from '@tamagui/lucide-icons';
+import { ArrowLeft, BookOpen, Calendar, Layers, Pencil, Share2, Trash2, Trophy } from '@tamagui/lucide-icons-2';
 import { useLocalSearchParams, useRouter } from 'expo-router';
-import { Button, Image, Progress, ScrollView, Spinner, Text, XStack, YStack } from 'tamagui';
+import { Button, Progress, ScrollView, Spinner, Text, XStack, YStack } from 'tamagui';
 import { useBookDetails } from '@/hooks/useBookDetails';
 import { IBook } from '@/types/book.types';
 import { BookMetadataCard } from '@/components/BookMetadataCard';
 import { useBookCard } from '@/hooks/useBookCard';
+import { Image } from 'expo-image';
 
 export default function BookDetails() {
   const router = useRouter();
@@ -48,10 +49,10 @@ export default function BookDetails() {
         left="$4"
         circular
         size="$4"
-        elevate
         zIndex={100} // Garante que ele fique por cima de tudo ao rolar
         onPress={() => router.back()}
         backgroundColor="$background"
+        aria-label="Voltar"
       />
 
       <ScrollView flex={1} contentContainerStyle={{ flexGrow: 1 }}>
@@ -84,7 +85,10 @@ export default function BookDetails() {
             <Image
               source={imgUri}
               style={{ width: 220, height: 300, borderRadius: 12 }}
-              objectFit="cover"
+              contentFit="cover"
+              cachePolicy="disk"
+              transition={100}
+              accessibilityLabel={`Capa do Livro ${title}`}
             />
           </YStack>
 
@@ -100,7 +104,14 @@ export default function BookDetails() {
 
           {/* Status */}
           {book.status && (
-            <Button size="$2" alignSelf="center" disabled {...currentStatusTheme} borderRadius="$4">
+            <Button
+              size="$2"
+              alignSelf="center"
+              disabled
+              {...currentStatusTheme}
+              borderRadius="$4"
+              aria-label={`Status do livro: ${book.status}`}
+            >
               {book.status}
             </Button>
           )}
@@ -108,8 +119,8 @@ export default function BookDetails() {
           {/* Barra de Progresso Dinâmica */}
           <YStack gap="$2" marginVertical="$2" paddingHorizontal="$4">
             <XStack justifyContent="space-between" alignItems="center">
-              <Progress value={progressPercentual} max={100} flex={1} marginRight="$3" size="$2">
-                <Progress.Indicator animation="lazy" backgroundColor="$blue10" />
+              <Progress value={progressPercentual} max={100} flex={1} marginRight="$3" size="$2" aria-label="Progresso de Leitura">
+                <Progress.Indicator backgroundColor="$blue10" />
               </Progress>
               <Text fontSize="$3" fontWeight="bold" color="$colorMuted">{progressPercentual}%</Text>
             </XStack>
@@ -176,15 +187,15 @@ export default function BookDetails() {
           {/* Ações */}
           <YStack gap="$3" marginTop="$4" paddingHorizontal="$2">
             <XStack gap="$3">
-              <Button theme="blue" icon={Pencil} flex={1} fontWeight="bold">
+              <Button theme="blue" icon={Pencil} flex={1} fontWeight="bold" aria-label="Editar livro">
                 Editar
               </Button>
-              <Button theme="red" icon={Trash2} variant="outlined" flex={1} fontWeight="bold">
+              <Button theme="red" icon={Trash2} variant="outlined" flex={1} fontWeight="bold" aria-label="Excluir livro">
                 Excluir
               </Button>
             </XStack>
 
-            <Button icon={Share2} variant="outlined" fontWeight="bold">
+            <Button icon={Share2} variant="outlined" fontWeight="bold" aria-label="Compartilhar livro">
               Compartilhar livro
             </Button>
           </YStack>

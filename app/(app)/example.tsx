@@ -15,7 +15,7 @@ import {
     Separator,
     ScrollView
 } from 'tamagui';
-import { BookOpen, Moon, Sun, Search, Plus } from '@tamagui/lucide-icons'; // Certifique-se de ter instalado caso queira usar ícones
+import { BookOpen, Moon, Sun, Search, Plus } from '@tamagui/lucide-icons-2'; // Certifique-se de ter instalado caso queira usar ícones
 
 export default function ExamplePage() {
     const { theme, toggleTheme } = useContext(ThemeContext);
@@ -74,7 +74,7 @@ export default function ExamplePage() {
                         <Paragraph color="$colorMuted" size="$3">Você já leu 13 de 20 livros programados.</Paragraph>
 
                         <Progress value={progress} max={100} size="$3" marginTop="$2" backgroundColor="$borderColor">
-                            <Progress.Indicator animation="lazy" backgroundColor="$primary" />
+                            <Progress.Indicator backgroundColor="$primary" />
                         </Progress>
 
                         <XStack justifyContent="flex-end" marginTop="$1">

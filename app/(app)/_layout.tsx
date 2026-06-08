@@ -7,7 +7,9 @@ export default function AppLayout() {
       screenOptions = {{header: () => <Header />}}
     >
       <Stack.Screen name="home" options={{ title: "Meus Livros" }} />
+      <Stack.Screen name="books/new" options={{ title: "Novo Livro" }} />
       <Stack.Screen name="books/[id]" options={{ title: "Detalhe do Livro" }} />
+      <Stack.Screen name="books/[id]/edit" options={{ title: "Editar Livro" }} />
     </Stack>
   );
 }

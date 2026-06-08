@@ -18,8 +18,7 @@ export function BookCard({ book }: { book: IBook }) {
     return (
         <Card 
             size="$4" 
-            bordered 
-            animation="bouncy" 
+            borderRadius="$4" 
             width={160} 
             hoverStyle={{ scale: 1.02 }}
             cursor="pointer"

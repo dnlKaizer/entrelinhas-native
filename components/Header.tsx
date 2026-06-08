@@ -1,6 +1,6 @@
 import { useLogin } from "@/hooks/useLogin";
 import { useTheme } from "@/hooks/useTheme";
-import { LogOut, Moon, Sun } from "@tamagui/lucide-icons";
+import { LogOut, Moon, Sun } from "@tamagui/lucide-icons-2";
 import { Button, H1, XStack, YStack } from "tamagui";
 
 export function Header() {

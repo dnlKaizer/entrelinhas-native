@@ -29,6 +29,10 @@ export function AuthForm({ isRegister = false }: { isRegister?: boolean }) {
                     placeholder="seu@email.com"
                     keyboardType="email-address"
                     autoCapitalize="none"
+
+                    color="$color"
+                    placeholderTextColor="$color"
+                    cursorColor="$blue10"
                 />
             </YStack>
 

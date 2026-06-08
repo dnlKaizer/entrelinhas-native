@@ -8,7 +8,6 @@ import { AddBookButton } from "././AddBookButton";
 export function BookList({ books, type }: { books: IBook[]; type: 'Desejado' | 'Lido' | 'Lendo' }) {
     const themeName = type === 'Desejado' ? 'blue' : type === 'Lido' ? 'green' : 'purple';
     const count = books.length;
-    const isEmpty = count === 0;
 
     return (
         <Theme name={themeName}>
@@ -20,7 +19,6 @@ export function BookList({ books, type }: { books: IBook[]; type: 'Desejado' | '
                 width="100%"
                 maxWidth={800}
                 alignSelf="center"
-                animation="bouncy"
             >
                 <H3 marginBottom="$2" alignSelf="center" fontWeight="bold">{type}</H3>
 

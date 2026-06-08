@@ -1,10 +1,11 @@
-import { ArrowLeft, BookOpen, Calendar, Layers, Pencil, Share2, Trash2, Trophy } from '@tamagui/lucide-icons';
+import { ArrowLeft, BookOpen, Calendar, Layers, Pencil, Share2, Trash2, Trophy } from '@tamagui/lucide-icons-2';
 import { useLocalSearchParams, useRouter } from 'expo-router';
-import { Button, Image, Progress, ScrollView, Spinner, Text, XStack, YStack } from 'tamagui';
+import { Button, Progress, ScrollView, Spinner, Text, XStack, YStack } from 'tamagui';
 import { useBookDetails } from '@/hooks/useBookDetails';
 import { IBook } from '@/types/book.types';
 import { BookMetadataCard } from '@/components/BookMetadataCard';
 import { useBookCard } from '@/hooks/useBookCard';
+import { Image } from 'expo-image';
 
 export default function BookDetails() {
   const router = useRouter();
@@ -48,7 +49,6 @@ export default function BookDetails() {
         left="$4"
         circular
         size="$4"
-        elevate
         zIndex={100} // Garante que ele fique por cima de tudo ao rolar
         onPress={() => router.back()}
         backgroundColor="$background"
@@ -84,7 +84,9 @@ export default function BookDetails() {
             <Image
               source={imgUri}
               style={{ width: 220, height: 300, borderRadius: 12 }}
-              objectFit="cover"
+              contentFit="cover"
+              cachePolicy="disk"
+              transition={100}
             />
           </YStack>
 
@@ -109,7 +111,7 @@ export default function BookDetails() {
           <YStack gap="$2" marginVertical="$2" paddingHorizontal="$4">
             <XStack justifyContent="space-between" alignItems="center">
               <Progress value={progressPercentual} max={100} flex={1} marginRight="$3" size="$2">
-                <Progress.Indicator animation="lazy" backgroundColor="$blue10" />
+                <Progress.Indicator backgroundColor="$blue10" />
               </Progress>
               <Text fontSize="$3" fontWeight="bold" color="$colorMuted">{progressPercentual}%</Text>
             </XStack>

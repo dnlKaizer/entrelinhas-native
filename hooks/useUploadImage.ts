@@ -2,6 +2,8 @@ import { useState } from 'react';
 import * as DocumentPicker from 'expo-document-picker';
 import { coverUploadService } from '@/services/cover-upload.service';
 import { useAuth } from './useAuth';
+import { ROUTES } from '@/constants/routes';
+import { router } from 'expo-router';
 
 export function useUploadImage() {
     const [loading, setLoading] = useState(false);
@@ -9,7 +11,8 @@ export function useUploadImage() {
     const { user } = useAuth();
 
     if (!user) {
-        throw new Error("Usuário não autenticado. O hook useUploadImage requer um usuário autenticado.");
+        router.replace(ROUTES.LOGIN);
+        return { selectAndUpload: async () => null, filePath: null, loading: false };
     }
 
     const userId = user.id;

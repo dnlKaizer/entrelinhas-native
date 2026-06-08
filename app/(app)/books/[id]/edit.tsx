@@ -1,11 +1,10 @@
-import { router, useLocalSearchParams } from "expo-router";
+import { useLocalSearchParams } from "expo-router";
 import { BookForm } from "@/components/BookForm";
 import { useBookDetails } from "@/hooks/useBookDetails";
 import { useBook } from "@/hooks/useBook";
 import { IBookInsert, IBookUpdate } from "@/types/book.types";
-import { Spinner, YStack, Text, Button } from "tamagui";
+import { Spinner, YStack, Text } from "tamagui";
 import { useAuth } from "@/hooks/useAuth";
-import { ArrowLeft } from "@tamagui/lucide-icons-2";
 import { BackButton } from "@/components/BackButton";
 
 export default function EditBook() {

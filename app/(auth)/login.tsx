@@ -1,9 +1,7 @@
-import { Text, View } from "react-native";
+import { AuthPage } from "@/components/AuthPage";
 
 export default function LoginPage() {
   return (
-    <View>
-      <Text>aqui fica a página de login</Text>
-    </View>
+    <AuthPage />
   );
 }

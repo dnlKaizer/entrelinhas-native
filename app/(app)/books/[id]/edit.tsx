@@ -42,7 +42,7 @@ export default function EditBook() {
     return (
         <YStack flex={1} backgroundColor="$background" position="relative">
             {/* Botão de Voltar */}
-            <BackButton isRight />
+            <BackButton />
             <BookForm
                 book={book}
                 onSubmit={handleSubmit}

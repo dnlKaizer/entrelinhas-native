@@ -15,12 +15,12 @@ class CoverUploadService {
         try {
             // 1. Converter a URI para um Blob (binário)
             const response = await fetch(file.uri);
-            const blob = await response.blob();
+            const arrayBuffer = await response.arrayBuffer();
 
-            // 2. Fazer o upload usando o Blob gerado
+            // 2. Fazer o upload usando o Array Buffer gerado
             const { error } = await supabase.storage
                 .from('covers')
-                .upload(filePath, blob, {
+                .upload(filePath, arrayBuffer, {
                     cacheControl: '3600',
                     upsert: false,
                     contentType: file.mimeType || 'image/jpeg',

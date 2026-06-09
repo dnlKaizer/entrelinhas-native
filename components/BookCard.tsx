@@ -21,6 +21,7 @@ export function BookCard({ book }: { book: IBook }) {
             borderRadius="$4" 
             width={160} 
             hoverStyle={{ scale: 1.02 }}
+            animationDuration={200}
             cursor="pointer"
             onPress={() => router.push(`/books/${book[DB_SCHEMA.BOOKS.COLUMNS.ID]}`)}
         >

@@ -24,7 +24,7 @@ export default function New() {
     return (
         <YStack flex={1} backgroundColor="$background" position="relative">
             {/* Botão de Voltar */}
-            <BackButton isRight />
+            <BackButton />
             <BookForm
                 onSubmit={handleSubmit}
             />
